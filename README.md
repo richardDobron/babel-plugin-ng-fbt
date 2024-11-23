@@ -8,9 +8,46 @@ The FBT Babel localization transform for AngularJS.
 $ npm install babel-plugin-ng-fbt
 ```
 
-## Webpack's configuration using ngx-build-plus
+## ngx-build-plus integration
 
-1. Create file named `fbt.plugin.js` in the root of your project and add the following content:
+
+1. In package.json
+
+```diff
+ "scripts": {
++  "postinstall": "patch-package"
+ }
+```
+
+3. Create a file named `patches/babel-plugin-fbt+1.0.0.patch` in the root of your project using the content from this [link](https://github.com/richardDobron/babel-plugin-ng-fbt/patches/babel-plugin-fbt+1.0.0.patch).
+
+4. Install patch-package
+
+```
+$ npm install patch-package
+```
+
+5. Create file named `.babelrc` in the root of your project and add the following content:
+
+```json
+{
+    "presets": [
+        "@babel/preset-env",
+        "@babel/preset-typescript"
+    ],
+    "plugins": [
+        [
+            "@babel/plugin-proposal-decorators",
+            {
+                "legacy": true
+            }
+        ],
+        "@babel/plugin-proposal-class-properties"
+    ]
+}
+```
+
+6. Create file named `fbt.plugin.js` in the root of your project and add the following content:
 
 ```javascript
 const path = require('path');
@@ -24,18 +61,8 @@ exports.default = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: [
-                            '@babel/preset-env',
-                            '@babel/preset-typescript',
-                        ],
+                        babelrc: true,
                         plugins: [
-                            [
-                                '@babel/plugin-proposal-decorators',
-                                {
-                                    'legacy': true,
-                                },
-                            ],
-                            '@babel/plugin-proposal-class-properties',
                             'babel-plugin-ng-fbt', // this line must be added before 'babel-plugin-fbt'
                             [
                                 'babel-plugin-fbt',
@@ -56,9 +83,9 @@ exports.default = {
 };
 ```
 
-2. Add the following lines to your `angular.json` file:
+7. Add the following lines to your `angular.json` file:
 
-```json5
+```diff
 {
   "projects": {
     "your-project-name": {
@@ -66,7 +93,7 @@ exports.default = {
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
-            "plugin": "~fbt.plugin.js" // or call ng build --plugin=~fbt.plugin.js
++             "plugin": "~fbt.plugin.js"
           }
         }
       }
