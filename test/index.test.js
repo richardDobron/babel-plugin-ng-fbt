@@ -29,6 +29,13 @@ describe("babel-plugin-ng-fbt", () => {
       );
     });
 
+    it("remove ctx_r0 prefix from nested fbs", () => {
+      compare(
+        "ctx_r0.fbt('with token ' + ctx_r0.fbt.param('token', 'A') + ' here', 'test')",
+        "fbt('with token ' + fbt.param('token', 'A') + ' here', 'test')"
+      );
+    });
+
     it("keep custom prefix from nested fbs", () => {
       compare(
         "obj.fbt('with token ' + obj.fbt.param('token', 'A') + ' here', 'test')",
@@ -40,7 +47,7 @@ describe("babel-plugin-ng-fbt", () => {
       compare("fbt('without tokens', 'test')", "fbt('without tokens', 'test')");
     });
 
-    it("remove ctx prefix from fbs", () => {
+    it("remove ctx prefix from fbt", () => {
       compare(
         "(true) ? ctx.fbt('Yes', 'simple answer') : ctx.fbt('No', 'simple answer')",
         "true ? fbt('Yes', 'simple answer') : fbt('No', 'simple answer')"

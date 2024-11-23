@@ -1,9 +1,11 @@
 module.exports = function (babel) {
   const { types: t } = babel;
+  const ctxRegex = /^ctx(_[a-zA-Z0-9]+)?$/;
 
   function isFbtModuleOrMethod(object, property) {
     return (
-      t.isIdentifier(object, { name: "ctx" }) &&
+      t.isIdentifier(object) &&
+      ctxRegex.test(object.name) &&
       (t.isIdentifier(property, { name: "fbt" }) ||
         t.isIdentifier(property, { name: "fbs" }))
     );
@@ -17,7 +19,10 @@ module.exports = function (babel) {
         const { callee } = node;
         const { object, property } = callee;
 
-        if (t.isMemberExpression(callee) && isFbtModuleOrMethod(object, property)) {
+        if (
+          t.isMemberExpression(callee) &&
+          isFbtModuleOrMethod(object, property)
+        ) {
           node.callee = t.identifier(property.name);
 
           scope.traverse(node, {
