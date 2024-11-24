@@ -19,15 +19,15 @@ $ npm install babel-plugin-ng-fbt
  }
 ```
 
-3. Create a file named `patches/babel-plugin-fbt+1.0.0.patch` in the root of your project using the content from this [link](https://github.com/richardDobron/babel-plugin-ng-fbt/patches/babel-plugin-fbt+1.0.0.patch).
+2. Create a file named `patches/babel-plugin-fbt+1.0.0.patch` in the root of your project using the content from this [link](https://github.com/richardDobron/babel-plugin-ng-fbt/blob/main/patches/babel-plugin-fbt%2B1.0.0.patch).
 
-4. Install patch-package
+3. Install patch-package
 
 ```
 $ npm install patch-package
 ```
 
-5. Create file named `.babelrc` in the root of your project and add the following content:
+4. Create file named `.babelrc` in the root of your project and add the following content:
 
 ```json
 {
@@ -47,7 +47,7 @@ $ npm install patch-package
 }
 ```
 
-6. Create file named `fbt.plugin.js` in the root of your project and add the following content:
+5. Create file named `fbt.plugin.js` in the root of your project and add the following content:
 
 ```javascript
 const path = require('path');
@@ -83,7 +83,7 @@ exports.default = {
 };
 ```
 
-7. Add the following lines to your `angular.json` file:
+6. Add the following lines to your `angular.json` file:
 
 ```diff
 {
