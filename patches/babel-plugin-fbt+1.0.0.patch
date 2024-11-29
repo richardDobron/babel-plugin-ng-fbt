@@ -1,21 +1,34 @@
 diff --git a/node_modules/babel-plugin-fbt/dist/bin/FbtCollector.js b/node_modules/babel-plugin-fbt/dist/bin/FbtCollector.js
-index 52d9490..f5e6cd5 100644
+index 52d9490..8f504a2 100644
 --- a/node_modules/babel-plugin-fbt/dist/bin/FbtCollector.js
 +++ b/node_modules/babel-plugin-fbt/dist/bin/FbtCollector.js
-@@ -40,6 +40,11 @@ class FbtCollector {
+@@ -40,6 +40,24 @@ class FbtCollector {
    }
  
    collectFromOneFile(source, filename, fbtEnumManifest) {
 +    if (filename.endsWith('.html')) {
-+      const htmlCalls = source.match(/{{\s*(.+?)\s*}}/g).join(';\n');
-+      source = `const fbt = require('fbt');\n${htmlCalls}`;
++      const fbtRegex = /fb[ts]/;
++
++      const htmlCalls = source
++        .match(/{{\s*(.+?)\s*}}/gs)
++        ?.filter((match) => fbtRegex.test(match))
++        .join(';\n') || '';
++
++      const attributeCalls = Array.from(
++        source.matchAll(/\[.+\]=(["'])((?:\\\1|.|[\r\n])*?)\1/g)
++      )
++        .map((match) => fbtRegex.test(match[2]) ? match[2] : '')
++        .filter(Boolean)
++        .join('\n');
++
++      source = `const fbt = require('fbt');\n${htmlCalls}\n${attributeCalls}`;
 +    }
 +
      const options = {
        collectFbt: true,
        extraOptions: this._extraOptions,
 diff --git a/node_modules/babel-plugin-fbt/dist/bin/manifestUtils.js b/node_modules/babel-plugin-fbt/dist/bin/manifestUtils.js
-index 894e8e3..44a4410 100644
+index 894e8e3..9e472a2 100644
 --- a/node_modules/babel-plugin-fbt/dist/bin/manifestUtils.js
 +++ b/node_modules/babel-plugin-fbt/dist/bin/manifestUtils.js
 @@ -23,7 +23,7 @@ const invariant = require('invariant');
