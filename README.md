@@ -5,7 +5,7 @@ The FBT Babel localization transform for AngularJS.
 ## Installation
 
 ```
-$ npm install babel-plugin-ng-fbt
+npm install babel-plugin-ng-fbt
 ```
 
 ## ngx-build-plus integration
@@ -19,12 +19,14 @@ $ npm install babel-plugin-ng-fbt
  }
 ```
 
-2. Create a file named `patches/babel-plugin-fbt+1.0.0.patch` in the root of your project using the content from this [link](https://github.com/richardDobron/babel-plugin-ng-fbt/blob/main/patches/babel-plugin-fbt%2B1.0.0.patch).
+2. Create a file named `patches/babel-plugin-fbt+1.0.0.patch` in the root of your project using the content from this file:
+
+   <https://github.com/richardDobron/babel-plugin-ng-fbt/blob/99c9ab6d7d0aee824ee1d652e09b0b82e52db4e7/patches/babel-plugin-fbt%2B1.0.0.patch>
 
 3. Install patch-package
 
 ```
-$ npm install patch-package
+npm install patch-package
 ```
 
 4. Create file named `.babelrc` in the root of your project and add the following content:
