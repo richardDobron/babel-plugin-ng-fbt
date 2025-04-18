@@ -2,16 +2,18 @@
 
 The FBT Babel localization transform for AngularJS.
 
-## Installation
+## 📦 Installation
+
+Install the plugin via npm:
 
 ```
 npm install babel-plugin-ng-fbt
 ```
 
-## ngx-build-plus integration
+## 📖 ngx-build-plus integration
 
 
-1. In package.json
+1. Modify package.json
 
 ```diff
  "scripts": {
@@ -19,9 +21,11 @@ npm install babel-plugin-ng-fbt
  }
 ```
 
-2. Create a file named `patches/babel-plugin-fbt+1.0.0.patch` in the root of your project using the content from this file:
+2. Create Patch File
 
-   <https://github.com/richardDobron/babel-plugin-ng-fbt/blob/99c9ab6d7d0aee824ee1d652e09b0b82e52db4e7/patches/babel-plugin-fbt%2B1.0.0.patch>
+Create a file named `patches/babel-plugin-fbt+1.0.0.patch` in the root of your project using the content from this patch file:
+
+   <https://github.com/richardDobron/babel-plugin-ng-fbt/blob/99c9ab6d7d0aee824ee1d652e09b0b82e52db4e7/patches/babel-plugin-fbt%2B1.0.0.patch#L1-L42>
 
 3. Install patch-package
 
@@ -29,7 +33,9 @@ npm install babel-plugin-ng-fbt
 npm install patch-package
 ```
 
-4. Create file named `.babelrc` in the root of your project and add the following content:
+4. Create .babelrc File
+
+Add the following configuration to `.babelrc` in the root of your project:
 
 ```json
 {
@@ -49,7 +55,9 @@ npm install patch-package
 }
 ```
 
-5. Create file named `fbt.plugin.js` in the root of your project and add the following content:
+5. Create fbt.plugin.js File
+
+Add the following content to `fbt.plugin.js` in the root of your project:
 
 ```javascript
 const path = require('path');
@@ -85,7 +93,9 @@ exports.default = {
 };
 ```
 
-6. Add the following lines to your `angular.json` file:
+6. Modify angular.json
+
+Add the following configuration to your `angular.json` file:
 
 ```diff
 {
@@ -104,7 +114,9 @@ exports.default = {
 }
 ```
 
-## Angular implementation concept
+## ⚡️ Angular implementation concept
+
+Below is an example of how to integrate `babel-plugin-ng-fbt` into an Angular component:
 
 ```typescript
 import { Component } from '@angular/core';
@@ -122,6 +134,6 @@ export class StoreButtonComponent {
 }
 ```
 
-## License
+## ⚖️ License
 
 This plugin is licensed under the MIT license. See [LICENSE](./LICENSE).
